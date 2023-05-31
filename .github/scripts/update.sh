@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-git clone --depth 1 --branch master --no-checkout https://github.com/yt-dlp/yt-dlp.git 
+git clone --depth 1 --branch master --sparse --no-checkout https://github.com/yt-dlp/yt-dlp.git 
 # /tmp/yt_dlp/
 cd yt_dlp
 git sparse-checkout set yt_dlp/* !yt_dlp/extractor/* --no-cone
