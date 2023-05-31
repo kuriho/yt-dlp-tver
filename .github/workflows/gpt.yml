@@ -1,0 +1,37 @@
+name: TVer
+
+on:
+  schedule:
+    - cron: '0 20 * * *'  # Customize the cron schedule as desired
+  workflow_dispatch:
+
+jobs:
+  update-lib:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone yt-dlp Repository
+        uses: actions/checkout@v2
+        with:
+          repository: yt-dlp/yt-dlp
+          ref: master
+          path: yt_dlp
+          fetch-depth: 1
+
+      - name: Copy yt_dlp Content
+        run: |
+          mkdir -p ${{ github.workspace }}/lib/yt_dlp
+          cp -r yt_dlp/* ${{ github.workspace }}/lib/yt_dlp
+
+      - name: Commit and Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update lib/yt_dlp
+          commit_user_name: GitHub Actions
+          commit_user_email: actions@github.com
+
+      - name: Push Changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
