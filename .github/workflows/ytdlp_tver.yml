@@ -1,8 +1,8 @@
-name: TVer
+name: update yt_dlp for TVer
 
 on:
   schedule:
-    - cron: '0 20 * * *'  # Customize the cron schedule as desired
+    - cron: '0 * * * *'  # Customize the cron schedule as desired
   workflow_dispatch:
 
 jobs:
@@ -25,6 +25,7 @@ jobs:
             --no-cone
             yt_dlp/* 
             !yt_dlp/extractor/*
+            yt_dlp/extractor/common.py
 
       - name: List Cloned Files
         run: |
@@ -33,13 +34,11 @@ jobs:
 
       - name: Sparse Checkout
         run: |
-          #git sparse-checkout init --cone
-          #git sparse-checkout set yt_dlp/* !yt_dlp/extractor/* --no-cone
           git sparse-checkout add yt_dlp/extractor/__init__.py --no-cone
           git sparse-checkout add yt_dlp/extractor/adobepass.py --no-cone
           git sparse-checkout add yt_dlp/extractor/tver.py --no-cone
           git sparse-checkout add yt_dlp/extractor/brightcove.py --no-cone
-          git sparse-checkout add yt_dlp/extractor/common.py --no-cone
+          #git sparse-checkout add yt_dlp/extractor/common.py --no-cone
         working-directory: lib
         
       - name: List Cloned Files
