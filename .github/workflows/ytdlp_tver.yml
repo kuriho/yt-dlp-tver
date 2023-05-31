@@ -31,6 +31,8 @@ jobs:
             yt_dlp/extractor/common.py
             yt_dlp/extractor/commonmistakes.py
             yt_dlp/extractor/commonprotocols.py
+            yt_dlp/extractor/extractors.py
+            yt_dlp/extractor/openload.py
             yt_dlp/extractor/tver.py
         
       - name: Check status
