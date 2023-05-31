@@ -9,10 +9,11 @@ git sparse-checkout set yt_dlp/* !yt_dlp/extractor/* --no-cone
 git sparse-checkout add yt_dlp/extractor/brightcove.py yt_dlp/extractor/tver.py --no-cone
 ls -alrth
 
-mv -f ${GITHUB_WORKSPACE}/tmp/yt_dlp/ ${GITHUB_WORKSPACE}/lib/yt_dlp/
 cd ..
 cd ..
 ls -alrth
+
+mv -f tmp/yt_dlp/ lib/yt_dlp/
 
 git add lib/yt_dlp/
 
