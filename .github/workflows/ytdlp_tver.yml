@@ -41,8 +41,7 @@ jobs:
 
       - name: Copy Files
         run: |
-          git add yt_dlp
-        working-directory: lib
+          git add lib/yt_dlp
           
 
       - name: Commit and Push Changes
