@@ -37,8 +37,10 @@ jobs:
         
       - name: Check status
         run: |
+          #don't check modded files
           git update-index --assume-unchanged lib/yt_dlp/extractor/_extractors.py
           git update-index --assume-unchanged lib/yt_dlp/extractor/generic.py
+          
           if [[ -z $(git status --porcelain) ]]; then
             echo "clean=true" >> $GITHUB_ENV
           else
@@ -53,7 +55,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          #don't track modified files
+          #don't track modded files
           git update-index --assume-unchanged lib/yt_dlp/extractor/_extractors.py
           git update-index --assume-unchanged lib/yt_dlp/extractor/generic.py
           
