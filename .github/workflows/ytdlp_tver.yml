@@ -41,15 +41,10 @@ jobs:
 
       - name: Copy Files
         run: |
-          mkdir -p lib/yt_dlp
-          cp -r yt_dlp/* lib/yt_dlp/
-          cd lib/yt_dlp
-          git init
-          git config user.email "actions@github.com"
-          git config user.name "GitHub Actions"
-          git add .
-          git commit -m "Add files from yt_dlp"
-        working-directory: $GITHUB_WORKSPACE
+          mkdir -p $GITHUB_WORKSPACE/lib/yt_dlp
+          cp -r yt_dlp/* $GITHUB_WORKSPACE/lib/yt_dlp/
+          git -C $GITHUB_WORKSPACE add lib/yt_dlp
+        working-directory: yt_dlp
 
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v4
