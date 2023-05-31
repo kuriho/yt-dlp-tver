@@ -10,6 +10,9 @@ git sparse-checkout add yt_dlp/extractor/brightcove.py yt_dlp/extractor/tver.py 
 ls -alrth
 
 mv -f ${GITHUB_WORKSPACE}/tmp/yt_dlp/ ${GITHUB_WORKSPACE}/lib/yt_dlp/
+cd ..
+cd ..
+ls -alrth
 
 git add lib/yt_dlp/
 
