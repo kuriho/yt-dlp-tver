@@ -24,7 +24,7 @@ jobs:
 
       - name: List Cloned Files
         run: |
-          ls yt_dlp
+          ls yt_dlp/yt_dlp
 
       - name: Sparse Checkout
         run: |
@@ -35,7 +35,7 @@ jobs:
 
       - name: List Cloned Files 2
         run: |
-          ls yt_dlp
+          ls yt_dlp/yt_dlp
 
       - name: Copy Files
         run: |
