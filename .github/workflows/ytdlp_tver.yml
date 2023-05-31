@@ -11,12 +11,14 @@ jobs:
 
     steps:
       - name: Clone Monorepo
-        uses: actions/checkout@v2
+        uses: dfdez/checkout@feat/sparse-checkout
         with:
           repository: yt-dlp/yt-dlp
           ref: master
           path: yt_dlp
           fetch-depth: 1
+          sparse-checkout: |
+            yt_dlp/* !yt_dlp/extractor/* --no-cone
 
       - name: List Cloned Files
         run: |
