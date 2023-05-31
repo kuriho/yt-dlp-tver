@@ -40,3 +40,4 @@ jobs:
           commit_message: Update sparse checkout
           commit_user_name: GitHub Actions
           commit_user_email: actions@github.com
+          branch: master
