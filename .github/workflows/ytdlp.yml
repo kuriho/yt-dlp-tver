@@ -9,4 +9,9 @@ jobs:
     steps:
       - uses: dfdez/checkout@feat/sparse-checkout
         with:
-          sparse-checkout: .
+          sparse-checkout: yt_dlp/* !yt_dlp/extractor/* --no-cone
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - run: git config --global user.name "github-actions[bot]"
+      - run: git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - run: $GITHUB_WORKSPACE/.github/scripts/update.sh
+      - run: git push
