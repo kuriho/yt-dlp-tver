@@ -29,6 +29,8 @@ jobs:
             yt_dlp/extractor/adobepass.py
             yt_dlp/extractor/brightcove.py
             yt_dlp/extractor/common.py
+            yt_dlp/extractor/commonmistakes.py
+            yt_dlp/extractor/commonprotocols.py
             yt_dlp/extractor/tver.py
         
       - name: Check status
