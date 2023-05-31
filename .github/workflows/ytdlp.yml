@@ -4,11 +4,9 @@ on:
     - cron:  '* 20 * * *'
   workflow_dispatch:
 jobs:
-  update:
+  ytdlp:
     runs-on: ubuntu-latest
     steps:
-    -uses: dfdez/checkout@feat/sparse-checkout
-      with:
-        sparse-checkout: |
-        .github
-        src
+      - uses: dfdez/checkout@feat/sparse-checkout
+        with:
+          sparse-checkout: .
