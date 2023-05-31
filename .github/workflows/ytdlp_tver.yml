@@ -41,7 +41,6 @@ jobs:
 
       - name: Copy Files
         run: |
-          cd $GITHUB_WORKSPACE
           mkdir -p lib/yt_dlp
           cp -r yt_dlp/* lib/yt_dlp/
           cd lib/yt_dlp
