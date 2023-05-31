@@ -6,7 +6,7 @@ git sparse-checkout set yt_dlp/* !yt_dlp/extractor/* --no-cone
 git sparse-checkout add yt_dlp/extractor/brightcove.py yt_dlp/extractor/tver.py --no-cone
 
 echo "we moving it"
-ls /tmp/
+ls /tmp/yt_dlp/
 mv -f /tmp/yt_dlp/yt_dlp ${GITHUB_WORKSPACE}/lib/yt_dlp
 
 echo "we commit to it"
