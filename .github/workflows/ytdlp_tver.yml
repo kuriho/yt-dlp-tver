@@ -35,7 +35,8 @@ jobs:
         run: |
           git sparse-checkout init --cone
           git sparse-checkout set yt_dlp/* !yt_dlp/extractor/* --no-cone
-          git sparse-checkout add yt_dlp/extractor/brightcove.py yt_dlp/extractor/tver.py --no-cone
+          git sparse-checkout add yt_dlp/extractor/tver.py
+          git sparse-checkout add yt_dlp/extractor/brightcove.py 
         working-directory: lib
         
       - name: push changes to remote
