@@ -18,7 +18,9 @@ jobs:
           path: yt_dlp
           fetch-depth: 1
           sparse-checkout: |
-            yt_dlp/* !yt_dlp/extractor/* --no-cone
+            --no-cone
+            yt_dlp/* 
+            !yt_dlp/extractor/*
 
       - name: List Cloned Files
         run: |
