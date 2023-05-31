@@ -9,7 +9,7 @@ git sparse-checkout set yt_dlp/* !yt_dlp/extractor/* --no-cone
 git sparse-checkout add yt_dlp/extractor/brightcove.py yt_dlp/extractor/tver.py --no-cone
 ls -alrth
 
-git add ${GITHUB_WORKSPACE}/lib/yt_dlp/
+git add lib/yt_dlp/
 
 echo "we commit to it"
 git commit -m "auto update yt-dlp"
