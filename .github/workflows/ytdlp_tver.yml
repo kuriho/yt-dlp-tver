@@ -15,18 +15,15 @@ jobs:
 
       - name: List Cloned Files
         run: |
-          ls yt_dlp
+          ls 
+        working-directory: yt_dlp
           
       - name: Going in
         run: |
-          cd yt_dlp
           git sparse-checkout init --cone
           git sparse-checkout set yt_dlp/* !yt_dlp/extractor/* --no-cone
           git sparse-checkout add yt_dlp/extractor/brightcove.py yt_dlp/extractor/tver.py --no-cone
-          
-      - name: Run!
-        run: |
-          cd ..
+        working-directory: yt_dlp
           
       - name: List Cloned Files 2
         run: |
