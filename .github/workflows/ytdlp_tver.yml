@@ -50,6 +50,10 @@ jobs:
           git init
           git config --global user.name "user mane"
           git config --global user.email "user email"
+          
+          git update-index --assume-unchanged lib/yt_dlp/extractor/_extractors.py
+          git update-index --assume-unchanged lib/yt_dlp/extractor/generic.py
+          
           git add -A 
           git commit -m "yt_dlp: ${{ env.commit_upstream }}"
           git push
