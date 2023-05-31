@@ -48,8 +48,8 @@ jobs:
         if: env.clean == 'false'
         run: |
           git init
-          git config --global user.name "user mane"
-          git config --global user.email "user email"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
           git update-index --assume-unchanged lib/yt_dlp/extractor/_extractors.py
           git update-index --assume-unchanged lib/yt_dlp/extractor/generic.py
