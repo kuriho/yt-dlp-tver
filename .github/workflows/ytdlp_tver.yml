@@ -43,7 +43,8 @@ jobs:
         run: rm -r $GITHUB_WORKSPACE/lib/yt_dlp/*
 
       - name: Copy New Files
-        run: cp -r lib/yt_dlp/* $GITHUB_WORKSPACE/lib/yt_dlp/
+        run: cp -r yt_dlp/* $GITHUB_WORKSPACE/lib/yt_dlp/
+        working-directory: lib
 
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v4
