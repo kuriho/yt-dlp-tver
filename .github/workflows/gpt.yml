@@ -1,4 +1,4 @@
-name: TVer
+name: TVerGPT
 
 on:
   schedule:
