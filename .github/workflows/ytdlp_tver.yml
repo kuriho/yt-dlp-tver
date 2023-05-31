@@ -25,25 +25,11 @@ jobs:
             --no-cone
             yt_dlp/* 
             !yt_dlp/extractor/*
+            yt_dlp/extractor/__init__.py
+            yt_dlp/extractor/adobepass.py
+            yt_dlp/extractor/brightcove.py
             yt_dlp/extractor/common.py
-
-      - name: List Cloned Files
-        run: |
-          git init
-          ls -R
-
-      - name: Sparse Checkout
-        run: |
-          git sparse-checkout add yt_dlp/extractor/__init__.py --no-cone
-          git sparse-checkout add yt_dlp/extractor/adobepass.py --no-cone
-          git sparse-checkout add yt_dlp/extractor/tver.py --no-cone
-          git sparse-checkout add yt_dlp/extractor/brightcove.py --no-cone
-          #git sparse-checkout add yt_dlp/extractor/common.py --no-cone
-        working-directory: lib
-        
-      - name: List Cloned Files
-        run: |
-          ls -R
+            yt_dlp/extractor/tver.py
         
       - name: Check Git Status
         id: git-status
@@ -52,15 +38,17 @@ jobs:
             echo "clean=true" >> $GITHUB_ENV
           else
             echo "clean=false" >> $GITHUB_ENV
-            echo $(git ls-remote https://github.com/yt-dlp/yt-dlp.git master | awk '{ print "commit=" $1 }') >> $GITHUB_ENV
-            echo env.commit
+            echo "commit_upstream=$(git ls-remote https://github.com/yt-dlp/yt-dlp.git master | awk '{ print $1 }')" >> $GITHUB_ENV
+            echo env.commit_upstream
           fi
 
       - name: Commit and Push Changes
         if: env.clean == 'false'
         run: |
+          git init
           git config --global user.name "user mane"
           git config --global user.email "user email"
           git add -A 
           git commit -m "commit message"
+          echo env.commit_upstream
           git push
