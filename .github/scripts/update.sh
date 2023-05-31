@@ -16,7 +16,7 @@ git clone --depth 1 --branch master https://github.com/yt-dlp/yt-dlp.git tmp/yt_
 #ls -alrth
 
 rm -r lib/yt_dlp/
-mv -f tmp/yt_dlp/* lib/yt_dlp/
+mv -f tmp/yt_dlp/* lib/yt_dlp
 
 git add lib/yt_dlp/
 
