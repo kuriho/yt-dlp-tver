@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         
-      - name: Clone YT-DLP
+      - name: Sparse clone yt-dlp
         uses: dfdez/checkout@feat/sparse-checkout
         with:
           repository: yt-dlp/yt-dlp
@@ -31,15 +31,13 @@ jobs:
             yt_dlp/extractor/common.py
             yt_dlp/extractor/tver.py
         
-      - name: Check Git Status
-        id: git-status
+      - name: Check status
         run: |
           if [[ -z $(git status --porcelain) ]]; then
             echo "clean=true" >> $GITHUB_ENV
           else
             echo "clean=false" >> $GITHUB_ENV
             echo "commit_upstream=$(git ls-remote https://github.com/yt-dlp/yt-dlp.git master | awk '{ print $1 }')" >> $GITHUB_ENV
-            echo ${{ env.commit_upstream }} 
           fi
 
       - name: Commit and Push Changes
@@ -50,5 +48,4 @@ jobs:
           git config --global user.email "user email"
           git add -A 
           git commit -m "yt_dlp: ${{ env.commit_upstream }}"
-          echo env.commit_upstream
           git push
