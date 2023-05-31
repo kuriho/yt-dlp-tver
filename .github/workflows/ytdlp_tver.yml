@@ -12,6 +12,13 @@ jobs:
       - name: Clone Monorepo
         run: |
           git clone --depth 1 --branch master --no-checkout https://github.com/yt-dlp/yt-dlp.git yt_dlp
+
+      - name: List Cloned Files
+        run: |
+          ls yt_dlp
+          
+      - name: Going in
+        run: |
           cd yt_dlp
           git sparse-checkout init --cone
           git sparse-checkout set yt_dlp/* !yt_dlp/extractor/* --no-cone
