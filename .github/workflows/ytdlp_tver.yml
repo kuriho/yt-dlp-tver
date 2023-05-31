@@ -13,7 +13,7 @@ jobs:
       - name: Clone Monorepo
         uses: actions/checkout@v2
         with:
-          repository: yt-dlp/yt-dlp
+          repository: https://github.com/yt-dlp/yt-dlp.git
           ref: master
           path: yt_dlp
           sparse-depth: 1
