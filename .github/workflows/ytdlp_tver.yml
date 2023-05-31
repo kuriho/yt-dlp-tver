@@ -39,7 +39,7 @@ jobs:
           else
             echo "clean=false" >> $GITHUB_ENV
             echo "commit_upstream=$(git ls-remote https://github.com/yt-dlp/yt-dlp.git master | awk '{ print $1 }')" >> $GITHUB_ENV
-            echo env.commit_upstream
+            echo ${{ env.commit_upstream }} 
           fi
 
       - name: Commit and Push Changes
@@ -49,6 +49,6 @@ jobs:
           git config --global user.name "user mane"
           git config --global user.email "user email"
           git add -A 
-          git commit -m "commit message"
+          git commit -m "yt_dlp: ${{ env.commit_upstream }}"
           echo env.commit_upstream
           git push
