@@ -32,6 +32,7 @@ jobs:
           git sparse-checkout init --cone
           git sparse-checkout set yt_dlp/* !yt_dlp/extractor/* --no-cone
           git sparse-checkout add yt_dlp/extractor/brightcove.py yt_dlp/extractor/tver.py --no-cone
+          cd ..
 
       - name: List Cloned Files 2
         run: |
