@@ -10,7 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clone Monorepo
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+    
+      - name: Clone YT-DLP
         uses: dfdez/checkout@feat/sparse-checkout
         with:
           repository: yt-dlp/yt-dlp
