@@ -33,13 +33,11 @@ jobs:
           git sparse-checkout set yt_dlp/* !yt_dlp/extractor/* --no-cone
           git sparse-checkout add yt_dlp/extractor/brightcove.py yt_dlp/extractor/tver.py --no-cone
         working-directory: lib
-          
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          author_name: Your Name
-          author_email: mail@example.com
-          message: 'Your commit message'
-          add: 'lib'
-          push: --set-upstream origin master
-          repository: "kuriho/actions"
+        
+      - name: push changes to remote
+        run: |
+          git config --global user.name "user mane"
+          git config --global user.email "user email"
+          git add -A 
+          git commit -m "commit message"
+          git push
