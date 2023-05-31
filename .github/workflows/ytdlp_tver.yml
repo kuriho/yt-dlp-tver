@@ -41,9 +41,9 @@ jobs:
 
       - name: Copy Files
         run: |
-          mkdir -p $GITHUB_WORKSPACE/lib/yt_dlp
-          cp -r yt_dlp/* $GITHUB_WORKSPACE/lib/yt_dlp/
           cd $GITHUB_WORKSPACE
+          mkdir -p lib/yt_dlp
+          cp -r yt_dlp/* lib/yt_dlp/
           git add lib/yt_dlp
         working-directory: yt_dlp
 
