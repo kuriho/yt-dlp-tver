@@ -41,7 +41,17 @@ jobs:
           git sparse-checkout add yt_dlp/extractor/brightcove.py --no-cone
         working-directory: lib
         
+      - name: Check Git Status
+        id: git-status
+        run: |
+          if [[ -z $(git status --porcelain) ]]; then
+            echo "::set-output name=clean::true"
+          else
+            echo "::set-output name=clean::false"
+          fi
+        
       - name: push changes to remote
+        if: steps.git-status.outputs.clean == 'false'
         run: |
           git config --global user.name "user mane"
           git config --global user.email "user email"
