@@ -53,6 +53,8 @@ jobs:
             echo "clean=true" >> $GITHUB_ENV
           else
             echo "clean=false" >> $GITHUB_ENV
+            $(git ls-remote https://github.com/yt-dlp/yt-dlp.git master | awk '{ print "commit=" $1 }') >> $GITHUB_ENV
+            echo env.commit
           fi
 
       - name: Commit and Push Changes
