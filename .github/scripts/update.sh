@@ -5,7 +5,6 @@ git clone --depth 1 --branch master --no-checkout https://github.com/yt-dlp/yt-d
 cd /tmp/yt_dlp
 git sparse-checkout set yt_dlp/* !yt_dlp/extractor/*
 git sparse-checkout add yt_dlp/extractor/brightcove.py yt_dlp/extractor/tver.py
-echo "we doing it"
 cd ..
 cd ..
 echo "we removing it"
