@@ -24,6 +24,7 @@ jobs:
 
       - name: List Cloned Files
         run: |
+          git init
           ls -R
 
       - name: Sparse Checkout
