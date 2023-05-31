@@ -28,15 +28,15 @@ jobs:
 
       - name: Sparse Checkout
         run: |
-          cd yt_dlp
           git sparse-checkout init --cone
           git sparse-checkout set yt_dlp/* !yt_dlp/extractor/* --no-cone
           git sparse-checkout add yt_dlp/extractor/brightcove.py yt_dlp/extractor/tver.py --no-cone
-          cd ..
+        working-directory: lib
+
 
       - name: List Cloned Files 2
         run: |
-          ls yt_dlp/yt_dlp/extractor
+          ls lib/yt_dlp/extractor
           ls -R
             
       - name: Copy Files
@@ -44,7 +44,7 @@ jobs:
           mkdir -p $GITHUB_WORKSPACE/lib/yt_dlp
           cp -r yt_dlp/* $GITHUB_WORKSPACE/lib/yt_dlp/
           git -C $GITHUB_WORKSPACE add lib/yt_dlp
-        working-directory: yt_dlp
+        working-directory: lib
 
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v4
