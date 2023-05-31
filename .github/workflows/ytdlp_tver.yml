@@ -3,7 +3,7 @@ name: TVer
 on:
   schedule:
     - cron: '0 20 * * *'  # Customize the cron schedule as desired
-
+  workflow_dispatch:
 jobs:
   sparse-checkout:
     runs-on: ubuntu-latest
