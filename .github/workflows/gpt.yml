@@ -20,14 +20,13 @@ jobs:
           cd ..
 
       - name: Remove old files
-        run: rm -r ${{ github.workspace }}/lib/yt_dlp
+        run: rm -r lib/yt_dlp
 
       - name: Move updated files
-        run: mv /tmp/yt_dlp/yt_dlp ${{ github.workspace }}/lib/yt_dlp
+        run: mv /tmp/yt_dlp/yt_dlp lib/yt_dlp
 
       - name: Commit and push changes
         run: |
-          cd ${{ github.workspace }}
           git add lib/yt_dlp
           git commit -m "[CI] auto update yt-dlp to upstream commit"
           git push
