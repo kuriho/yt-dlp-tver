@@ -1,0 +1,13 @@
+name: ytdlp
+on:
+  schedule:
+    - cron:  '* 20 * * *'
+  workflow_dispatch:
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - run: git config --global user.name "github-actions[bot]"
+      - run: git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - run: $GITHUB_WORKSPACE/.github/scripts/ytdlp.sh
+      - run: git push
