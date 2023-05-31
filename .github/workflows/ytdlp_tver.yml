@@ -4,34 +4,38 @@ on:
   schedule:
     - cron: '0 20 * * *'  # Customize the cron schedule as desired
   workflow_dispatch:
+
 jobs:
   sparse-checkout:
     runs-on: ubuntu-latest
 
     steps:
       - name: Clone Monorepo
-        run: |
-          git clone --depth 1 --branch master --no-checkout https://github.com/yt-dlp/yt-dlp.git yt_dlp
+        uses: actions/checkout@v2
+        with:
+          repository: yt-dlp/yt-dlp
+          ref: master
+          path: yt_dlp
+          sparse-depth: 1
 
       - name: List Cloned Files
         run: |
-          ls 
-        working-directory: yt_dlp
-          
-      - name: Going in
+          ls yt_dlp
+
+      - name: Sparse Checkout
         run: |
+          cd yt_dlp
           git sparse-checkout init --cone
           git sparse-checkout set yt_dlp/* !yt_dlp/extractor/* --no-cone
           git sparse-checkout add yt_dlp/extractor/brightcove.py yt_dlp/extractor/tver.py --no-cone
-        working-directory: yt_dlp
-          
+
       - name: List Cloned Files 2
         run: |
           ls yt_dlp
 
       - name: Copy Files
         run: |
-          cp -r yt_dlp/yt_dlp lib/yt_dlp
+          cp -r yt_dlp lib/yt_dlp
 
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v4
