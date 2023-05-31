@@ -13,10 +13,9 @@ cd ..
 cd ..
 ls -alrth
 
-mv -f tmp/yt_dlp/yt_dlp lib/yt_dlp/
+mv -f tmp/yt_dlp/ lib/
 
 git add lib/yt_dlp/
 
-echo "we commit to it"
 git commit -m "auto update yt-dlp"
 echo "yt-dlp succesfully upgraded and staged for push"
