@@ -45,13 +45,13 @@ jobs:
         id: git-status
         run: |
           if [[ -z $(git status --porcelain) ]]; then
-            echo "::set-output name=clean::true"
+            echo "clean=true" >> $GITHUB_ENV
           else
-            echo "::set-output name=clean::false"
+            echo "clean=false" >> $GITHUB_ENV
           fi
-        
-      - name: push changes to remote
-        if: steps.git-status.outputs.clean == 'false'
+
+      - name: Commit and Push Changes
+        if: env.clean == 'false'
         run: |
           git config --global user.name "user mane"
           git config --global user.email "user email"
