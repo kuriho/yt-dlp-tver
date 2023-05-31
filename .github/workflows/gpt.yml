@@ -1,4 +1,4 @@
-name: TVerGPT
+name: Update yt-dlp
 
 on:
   schedule:
@@ -6,67 +6,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-lib:
+  update:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clone yt-dlp Repository
-        uses: actions/checkout@v2
-        with:
-          repository: yt-dlp/yt-dlp
-          ref: master
-          path: yt_dlp
-          fetch-depth: 1
-
-      - name: Copy yt_dlp Content
+      - name: Clone yt-dlp
         run: |
-          mkdir -p ${{ github.workspace }}/lib/yt_dlp
-          cp -r yt_dlp/* ${{ github.workspace }}/lib/yt_dlp
+          git clone --depth 1 --branch master --no-checkout https://github.com/yt-dlp/yt-dlp.git /tmp/yt_dlp
+          cd /tmp/yt_dlp
+          git sparse-checkout set yt_dlp/* !yt_dlp/extractor/*
+          git sparse-checkout add yt_dlp/extractor/brightcove.py yt_dlp/extractor/tver.py
+          cd ..
 
-      - name: Commit and Push Changes
-        uses: actions/github-script@v5
-        with:
-          script: |
-            const github = context.github;
-            const repo = context.repo;
-            const fs = require('fs');
+      - name: Remove old files
+        run: rm -r ${{ github.workspace }}/lib/yt_dlp
 
-            const commitMsg = 'Update lib/yt_dlp';
+      - name: Move updated files
+        run: mv /tmp/yt_dlp/yt_dlp ${{ github.workspace }}/lib/yt_dlp
 
-            fs.readdir('${{ github.workspace }}/lib/yt_dlp', (err, files) => {
-              if (err) {
-                console.error('Error reading directory:', err);
-                return;
-              }
-
-              github.git.createTree({
-                owner: repo.owner,
-                repo: repo.repo,
-                base_tree: context.payload.repository.default_branch,
-                tree: files.map(file => ({
-                  path: `lib/yt_dlp/${file}`,
-                  mode: '100644',
-                  type: 'blob',
-                  content: fs.readFileSync(`${{ github.workspace }}/lib/yt_dlp/${file}`, 'utf8')
-                }))
-              }).then(tree => {
-                return github.git.createCommit({
-                  owner: repo.owner,
-                  repo: repo.repo,
-                  message: commitMsg,
-                  parents: [context.payload.repository.default_branch],
-                  tree: tree.data.sha
-                });
-              }).then(commit => {
-                return github.git.updateRef({
-                  owner: repo.owner,
-                  repo: repo.repo,
-                  ref: `heads/${context.payload.repository.default_branch}`,
-                  sha: commit.data.sha
-                });
-              }).then(() => {
-                console.log('Changes committed and pushed successfully.');
-              }).catch(err => {
-                console.error('Error committing and pushing changes:', err);
-              });
-            });
+      - name: Commit and push changes
+        run: |
+          cd ${{ github.workspace }}
+          git add lib/yt_dlp
+          git commit -m "[CI] auto update yt-dlp to upstream commit"
+          git push
