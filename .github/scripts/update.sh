@@ -1,9 +1,12 @@
 #!/bin/bash
 set -e
 
+ls -alrth 
 git clone --depth 1 --branch master --sparse --no-checkout https://github.com/yt-dlp/yt-dlp.git lib/yt_dlp/
+ls -alrth 
 git sparse-checkout set yt_dlp/* !yt_dlp/extractor/* --no-cone
 git sparse-checkout add yt_dlp/extractor/brightcove.py yt_dlp/extractor/tver.py --no-cone
+ls -alrth
 
 git add lib/yt_dlp/
 
