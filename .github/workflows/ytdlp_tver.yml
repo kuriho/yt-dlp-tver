@@ -35,7 +35,7 @@ jobs:
 
       - name: List Cloned Files 2
         run: |
-          ls yt_dlp/yt_dlp
+          ls yt_dlp/yt_dlp/extractor
 
       - name: Copy Files
         run: |
