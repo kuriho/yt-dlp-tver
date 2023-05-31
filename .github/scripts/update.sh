@@ -13,7 +13,7 @@ cd ..
 cd ..
 ls -alrth
 
-mv -f tmp/yt_dlp/ lib/
+mv -f tmp/yt_dlp/* lib/yt_dlp/
 
 git add lib/yt_dlp/
 
