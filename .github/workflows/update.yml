@@ -10,7 +10,5 @@ jobs:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      - run: git config --global user.name "github-actions[bot]"
-      - run: git config --global user.email "github-actions[bot]@users.noreply.github.com"
       - run: $GITHUB_WORKSPACE/.github/scripts/update.sh
       - run: git push
