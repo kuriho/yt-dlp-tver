@@ -41,3 +41,4 @@ jobs:
           author_email: mail@example.com
           message: 'Your commit message'
           add: 'lib/**'
+          push: --set-upstream origin master
