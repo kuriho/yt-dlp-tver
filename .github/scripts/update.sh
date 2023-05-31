@@ -7,6 +7,8 @@ git clone --depth 1 --branch master --sparse --no-checkout https://github.com/yt
 git sparse-checkout set yt_dlp/* !yt_dlp/extractor/* --no-cone
 git sparse-checkout add yt_dlp/extractor/brightcove.py yt_dlp/extractor/tver.py --no-cone
 
+git add yt_dlp
+
 #echo "we moving it"
 #ls /tmp/yt_dlp/
 #mv -f /tmp/yt_dlp/yt_dlp ${GITHUB_WORKSPACE}/lib/yt_dlp
