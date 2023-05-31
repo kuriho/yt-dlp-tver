@@ -15,7 +15,7 @@ jobs:
         with:
           repository: yt-dlp/yt-dlp
           ref: master
-          path: lib/yt_dlp
+          path: lib
           fetch-depth: 1
           sparse-checkout: |
             --no-cone
