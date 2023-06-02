@@ -13,11 +13,3 @@ jobs:
      if: ${{ github.event.workflow_run.conclusion == 'success' }}
      steps:
        - run: echo "First workflow was a success"
-
-   on-failure:
-     runs-on: ubuntu-latest
-     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-     steps:
-      - run: |
-         echo "::error file={name},line={line},endLine={endLine},title={title}::{message}"
-         exit 1
