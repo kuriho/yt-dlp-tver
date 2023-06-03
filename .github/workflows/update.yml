@@ -1,0 +1,66 @@
+name: update yt_dlp for TVer
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Customize the cron schedule as desired
+  workflow_dispatch:
+
+jobs:
+  sparse-checkout:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
+        
+      - name: Sparse clone yt-dlp
+        uses: dfdez/checkout@feat/sparse-checkout
+        with:
+          repository: yt-dlp/yt-dlp
+          ref: master
+          path: lib
+          fetch-depth: 1
+          sparse-checkout: |
+            --no-cone
+            yt_dlp/* 
+            !yt_dlp/extractor/*
+            yt_dlp/extractor/__init__.py
+            yt_dlp/extractor/adobepass.py
+            yt_dlp/extractor/brightcove.py
+            yt_dlp/extractor/common.py
+            yt_dlp/extractor/commonmistakes.py
+            yt_dlp/extractor/commonprotocols.py
+            yt_dlp/extractor/extractors.py
+            yt_dlp/extractor/openload.py
+            yt_dlp/extractor/tver.py
+        
+      - name: Check status
+        run: |
+          #don't check modded files
+          git update-index --assume-unchanged lib/yt_dlp/extractor/_extractors.py
+          git update-index --assume-unchanged lib/yt_dlp/extractor/generic.py
+          
+          if [[ -z $(git status --porcelain) ]]; then
+            echo "clean=true" >> $GITHUB_ENV
+          else
+            echo "clean=false" >> $GITHUB_ENV
+            echo "commit_upstream=$(git ls-remote https://github.com/yt-dlp/yt-dlp.git master | awk '{ print $1 }')" >> $GITHUB_ENV
+          fi
+
+      - name: Commit and Push Changes
+        if: env.clean == 'false'
+        run: |
+          git init
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          #don't track modded files
+          git update-index --assume-unchanged lib/yt_dlp/extractor/_extractors.py
+          git update-index --assume-unchanged lib/yt_dlp/extractor/generic.py
+          
+          git add -A 
+          git commit -m "yt_dlp: ${{ env.commit_upstream }}"
+          git push
