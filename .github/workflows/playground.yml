@@ -15,8 +15,8 @@ jobs:
         - name: Checkout Project B
           uses: actions/checkout@master
           with: 
-            repository: tomassirio/projectB
-            token: ${{ secrets.ACTIONS_TOKEN }}
+            repository: kuriho/target
+            token: ${{ secrets.PAT }}
             path: ./projectB
 
         - name: Copy/Create file
@@ -27,6 +27,7 @@ jobs:
         - name: Push Project B
           run: |
             cd ./projectB
+            git init
             git add -A 
             git config --global user.name "github-actions[bot]"
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
