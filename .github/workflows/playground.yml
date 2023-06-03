@@ -22,11 +22,13 @@ jobs:
         - name: Copy over
           run: |
             cp -R ./yt-dlp-tver/lib/** ./tver/lib/
-
-        - name: Release
+            
+        - name: Get latest commit
           run: |
             echo "commit_upstream=$(git ls-remote https://github.com/yt-dlp/yt-dlp.git master | awk '{ print $1 }')" >> $GITHUB_ENV
-          
+
+        - name: Release
+          run: |          
             cd ./tver
             git init
             git add -A 
