@@ -25,13 +25,15 @@ jobs:
 
         - name: Release
           run: |
+            echo "commit_upstream=$(git ls-remote https://github.com/yt-dlp/yt-dlp.git master | awk '{ print $1 }')" >> $GITHUB_ENV
+          
             cd ./tver
             git init
             git add -A 
+            
             git config --global user.name "github-actions[bot]"
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
-            commit_upstream=$(git ls-remote https://github.com/yt-dlp/yt-dlp.git master | awk '{ print $1 }')
             
-            git commit -am "[CI] yt-dlp: ${{ commit_upstream }}"
+            git commit -am "[CI] yt-dlp: ${{ env.commit_upstream }}"
             git push
          
