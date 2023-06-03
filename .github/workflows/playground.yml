@@ -7,30 +7,31 @@ jobs:
    on-success:
      runs-on: ubuntu-latest
      steps:
-        - name: Checkout Project A
+        - name: Checkout yt-dlp-tver
           uses: actions/checkout@v2
           with:
-            path: ./projectA
+            path: ./yt-dlp-tver
 
-        - name: Checkout Project B
+        - name: Checkout TVer
           uses: actions/checkout@master
           with: 
             repository: kuriho/target
             token: ${{ secrets.PAT }}
-            path: ./projectB
+            path: ./tver
 
-        - name: Copy/Create file
+        - name: Copy over
           run: |
-            cp -R ./projectA/lib/** ./projectB/lib/
+            cp -R ./yt-dlp-tver/lib/** ./tver/lib/
 
-
-        - name: Push Project B
+        - name: Release
           run: |
-            cd ./projectB
+            cd ./tver
             git init
             git add -A 
             git config --global user.name "github-actions[bot]"
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
-            git commit -am "File Replicated from Project A"
+            commit_upstream=$(git ls-remote https://github.com/yt-dlp/yt-dlp.git master | awk '{ print $1 }')
+            
+            git commit -am "[CI] yt-dlp: ${{ commit_upstream }}"
             git push
          
