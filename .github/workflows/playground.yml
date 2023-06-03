@@ -7,4 +7,29 @@ jobs:
    on-success:
      runs-on: ubuntu-latest
      steps:
-       - run: echo "First workflow was a success"
+        - name: Checkout Project A
+          uses: actions/checkout@v2
+          with:
+            path: ./projectA
+
+        - name: Checkout Project B
+          uses: actions/checkout@master
+          with: 
+            repository: tomassirio/projectB
+            token: ${{ secrets.ACTIONS_TOKEN }}
+            path: ./projectB
+
+        - name: Copy/Create file
+          run: |
+            cp -R ./projectA/lib/** ./projectB/lib/
+
+
+        - name: Push Project B
+          run: |
+            cd ./projectB
+            git add -A 
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git commit -am "File Replicated from Project A"
+            git push
+         
