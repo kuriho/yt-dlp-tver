@@ -15,7 +15,7 @@ _By removing all extractors that are irrelevant to TVer.jp, yt-dlp-tver not only
 If this approach ultimately proves to be a poor decision, I can still take solace in the fact that I gained valuable knowledge about GitHub Actions along the way.
 
 ## Modifications
-Besides removing all extractors that aren't necessary for extracting a valid stream manifest URL from TVer.jp, there had to be made some minor changes to [_extractors.py](lib/yt_dlp/extractor/_extractors.py) and (sadly) [generic.py](https://gist.github.com/kuriho/6030dbda5bb07dc8f307d78d2770457e/revisions?diff=unified). 
+Besides removing all extractors that aren't necessary for extracting a valid stream manifest URL from TVer.jp, there had to be made some minor changes to [_extractors.py](lib/yt_dlp/extractor/_extractors.py) and [youtube.py](lib/yt_dlp/extractor/youtube.py). 
 
 ## CI pipeline
 <img src="https://github.com/kuriho/script.module.yt-dlp-tver/blob/master/media/ci.png?raw=true" alt="drawing" width="600"/>

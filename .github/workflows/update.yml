@@ -34,6 +34,7 @@ jobs:
             yt_dlp/extractor/commonmistakes.py
             yt_dlp/extractor/commonprotocols.py
             yt_dlp/extractor/extractors.py
+            yt_dlp/extractor/generic.py
             yt_dlp/extractor/openload.py
             yt_dlp/extractor/tver.py
         
@@ -41,7 +42,7 @@ jobs:
         run: |
           #don't check modded files
           git update-index --assume-unchanged lib/yt_dlp/extractor/_extractors.py
-          git update-index --assume-unchanged lib/yt_dlp/extractor/generic.py
+          git update-index --assume-unchanged lib/yt_dlp/extractor/youtube.py
           
           if [[ -z $(git status --porcelain) ]]; then
             echo "clean=true" >> $GITHUB_ENV
@@ -59,7 +60,7 @@ jobs:
           
           #don't track modded files
           git update-index --assume-unchanged lib/yt_dlp/extractor/_extractors.py
-          git update-index --assume-unchanged lib/yt_dlp/extractor/generic.py
+          git update-index --assume-unchanged lib/yt_dlp/extractor/youtube.py
           
           git add -A 
           git commit -m "yt_dlp: ${{ env.commit_upstream }}"

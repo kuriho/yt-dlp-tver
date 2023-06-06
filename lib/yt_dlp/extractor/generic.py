@@ -6,6 +6,7 @@ import xml.etree.ElementTree
 
 from .common import InfoExtractor  # isort: split
 from .commonprotocols import RtmpIE
+from .youtube import YoutubeIE
 from ..compat import compat_etree_fromstring
 from ..utils import (
     KNOWN_EXTENSIONS,
@@ -2634,6 +2635,8 @@ class GenericIE(InfoExtractor):
                 if isinstance(src_type, str):
                     src_type = src_type.lower()
                 ext = determine_ext(src).lower()
+                if src_type == 'video/youtube':
+                    return [self.url_result(src, YoutubeIE.ie_key())]
                 if src_type == 'application/dash+xml' or ext == 'mpd':
                     fmts, subs = self._extract_mpd_formats_and_subtitles(
                         src, video_id, mpd_id='dash', fatal=False)
@@ -2703,6 +2706,8 @@ class GenericIE(InfoExtractor):
             }, json_ld)]
 
         def check_video(vurl):
+            if YoutubeIE.suitable(vurl):
+                return True
             if RtmpIE.suitable(vurl):
                 return True
             vpath = urllib.parse.urlparse(vurl).path
@@ -2814,6 +2819,10 @@ class GenericIE(InfoExtractor):
             video_url = urllib.parse.urljoin(url, video_url)
             video_id = urllib.parse.unquote(os.path.basename(video_url))
 
+            # Sometimes, jwplayer extraction will result in a YouTube URL
+            if YoutubeIE.suitable(video_url):
+                entries.append(self.url_result(video_url, 'Youtube'))
+                continue
 
             video_id = os.path.splitext(video_id)[0]
             headers = {
