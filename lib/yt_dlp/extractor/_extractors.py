@@ -7,8 +7,6 @@ from .brightcove import (
 
 from .tver import TVerIE
 
-from .adobepass import AdobePassIE
-
 from .commonmistakes import CommonMistakesIE, UnicodeBOMIE
 from .commonprotocols import (
     MmsIE,
