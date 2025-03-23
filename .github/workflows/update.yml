@@ -30,6 +30,7 @@ jobs:
             yt_dlp/extractor/__init__.py
             yt_dlp/extractor/adobepass.py
             yt_dlp/extractor/brightcove.py
+            yt_dlp/extractor/streaks.py
             yt_dlp/extractor/common.py
             yt_dlp/extractor/commonmistakes.py
             yt_dlp/extractor/commonprotocols.py

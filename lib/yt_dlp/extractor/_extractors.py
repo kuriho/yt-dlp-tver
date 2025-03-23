@@ -15,3 +15,5 @@ from .commonprotocols import (
 )
 
 from .generic import GenericIE
+
+from .streaks import StreaksIE
