@@ -2,7 +2,7 @@ name: update yt_dlp for TVer
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Customize the cron schedule as desired
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -12,19 +12,18 @@ jobs:
     steps:
 
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.PAT }}
         
       - name: Sparse clone yt-dlp
-        uses: dfdez/checkout@feat/sparse-checkout
+        uses: actions/checkout@v4
         with:
           repository: yt-dlp/yt-dlp
           ref: master
           path: lib
           fetch-depth: 1
           sparse-checkout: |
-            --no-cone
             yt_dlp/* 
             !yt_dlp/extractor/*
             yt_dlp/extractor/__init__.py
@@ -38,6 +37,7 @@ jobs:
             yt_dlp/extractor/generic.py
             yt_dlp/extractor/openload.py
             yt_dlp/extractor/tver.py
+          sparse-checkout-cone-mode: false
         
       - name: Check status
         run: |
