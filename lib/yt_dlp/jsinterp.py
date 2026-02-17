@@ -18,6 +18,14 @@ from .utils import (
 )
 
 
+def int_to_int32(n):
+    """Converts an integer to a signed 32-bit integer"""
+    n &= 0xFFFFFFFF
+    if n & 0x80000000:
+        return n - 0x100000000
+    return n
+
+
 def _js_bit_op(op):
     def zeroise(x):
         if x in (None, JS_Undefined):
@@ -28,7 +36,7 @@ def _js_bit_op(op):
         return int(float(x))
 
     def wrapped(a, b):
-        return op(zeroise(a), zeroise(b)) & 0xffffffff
+        return int_to_int32(op(int_to_int32(zeroise(a)), int_to_int32(zeroise(b))))
 
     return wrapped
 
@@ -377,7 +385,7 @@ class JSInterpreter:
         if idx == 'length':
             return len(obj)
         try:
-            return obj[int(idx)] if isinstance(obj, list) else obj[idx]
+            return obj[int(idx)] if isinstance(obj, list) else obj[str(idx)]
         except Exception as e:
             if allow_undefined:
                 return JS_Undefined
