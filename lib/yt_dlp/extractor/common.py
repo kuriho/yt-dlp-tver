@@ -375,6 +375,8 @@ class InfoExtractor:
                                            favorite by the video uploader
                         * "is_pinned" - Whether the comment is pinned to
                                         the top of the comments
+                        * "start_time" - Start time (in seconds) for displaying the comment
+                        * "end_time" - End time (in seconds) for displaying the comment
     age_limit:      Age restriction for the video, as an integer (years)
     webpage_url:    The URL to the video webpage, if given to yt-dlp it
                     should allow to get the same result again. (It will be set
@@ -920,9 +922,9 @@ class InfoExtractor:
 
             errmsg = f'{errnote}: {err}'
             if fatal:
-                raise ExtractorError(errmsg, cause=err)
+                raise ExtractorError(errmsg, cause=err, video_id=video_id)
             else:
-                self.report_warning(errmsg)
+                self.report_warning(errmsg, video_id=video_id)
                 return False
 
     def _download_webpage_handle(self, url_or_request, video_id, note=None, errnote=None, fatal=True,
